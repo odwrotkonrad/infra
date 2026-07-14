@@ -14,14 +14,7 @@ resource "gitlab_group_variable" "ci_gitlab_token" {
   protected = true
 }
 
-#[why] the SA key TF just generated (already base64) feeds its own CI applier var: no manual copy-paste, self-heals on rotation.
-resource "gitlab_group_variable" "ci_google_credentials" {
-  group     = local.restricted_group_id
-  key       = "GOOGLE_CREDENTIALS"
-  value     = google_service_account_key.restricted.private_key
-  masked    = true
-  protected = true
-}
+#[why] GOOGLE_CREDENTIALS is NOT managed here: it holds the out-of-band tf-restricted-infra applier SA key (created via gcloud, set via glab), kept outside the state this applier applies. Same isolation as tf-git-repos.
 
 resource "gitlab_group_variable" "ci_github_token" {
   group     = local.restricted_group_id
