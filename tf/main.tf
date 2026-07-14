@@ -117,71 +117,34 @@ locals {
   ]...)
 }
 
-resource "github_repository" "this" {
-  for_each = local.github_repos
+module "github" {
+  source = "./modules/github"
 
-  name        = each.key
-  description = each.value.description
-  topics      = each.value.topics
-  visibility  = each.value.visibility
+  github_repos = local.github_repos
 }
 
-#[why] the provider's gitlab_user_sshkey has no usage_type: only auth keys are manageable here; signing keys go in via the REST api (POST /user/keys usage_type=signing)
-resource "gitlab_user_sshkey" "this" {
-  for_each = { for k, p in var.user_ssh_keys : k => p if p.usage_type == "auth" }
+module "gcp" {
+  source = "./modules/gcp"
 
-  title = each.key
-  key   = each.value.key
+  gitlab_token    = module.gitlab.sandbox_token
+  ssh_key_comment = var.sandbox_ssh_key_comment
 }
 
-module "l0" {
-  source = "./modules/level"
+module "gitlab" {
+  source = "./modules/gitlab"
 
-  groups          = local.levels[0].groups
-  projects        = local.levels[0].projects
-  local_runner_id = var.local_runner_id
-  github_owner    = var.github_owner
-  github_token    = var.github_token
+  levels                = local.levels
+  restricted_group_path = var.trees["restricted"].path
+  konradodwrot_group_id = var.konradodwrot_group_id
+  token_expires_at      = var.token_expires_at
+  ci_gitlab_token       = var.ci_gitlab_token
+  ci_github_token       = var.ci_github_token
+  user_ssh_keys         = var.user_ssh_keys
+  ssh_public_key        = module.gcp.ssh_public_key
+  local_runner_id       = var.local_runner_id
+  github_owner          = var.github_owner
+  github_token          = var.github_token
 
-  depends_on = [github_repository.this]
-}
-
-module "l1" {
-  source = "./modules/level"
-
-  groups          = local.levels[1].groups
-  projects        = local.levels[1].projects
-  local_runner_id = var.local_runner_id
-  parent_ids      = module.l0.group_ids
-  github_owner    = var.github_owner
-  github_token    = var.github_token
-
-  depends_on = [github_repository.this]
-}
-
-module "l2" {
-  source = "./modules/level"
-
-  groups          = local.levels[2].groups
-  projects        = local.levels[2].projects
-  local_runner_id = var.local_runner_id
-  parent_ids      = module.l1.group_ids
-  github_owner    = var.github_owner
-  github_token    = var.github_token
-
-  depends_on = [github_repository.this]
-}
-
-module "l3" {
-  source = "./modules/level"
-
-  groups          = local.levels[3].groups
-  projects        = local.levels[3].projects
-  local_runner_id = var.local_runner_id
-  parent_ids      = module.l2.group_ids
-  github_owner    = var.github_owner
-  github_token    = var.github_token
-
-  depends_on = [github_repository.this]
+  depends_on = [module.github]
 }
 ##[<] 🤖🤖

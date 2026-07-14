@@ -58,6 +58,11 @@ variable "gcp_project" {
   default = "main-493613"
 }
 
+variable "sandbox_ssh_key_comment" {
+  type    = string
+  default = "odwrotkonrad+sandbox@gmail.com"
+}
+
 variable "konradodwrot_group_id" {
   type = number
 }
