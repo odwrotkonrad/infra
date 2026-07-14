@@ -16,4 +16,21 @@ output "gitlab_token_secret" {
 output "ssh_private_key_secret" {
   value = module.gcp.ssh_private_key_secret
 }
+
+output "ssh_signing_key_secret" {
+  value = module.gcp.ssh_signing_key_secret
+}
+
+output "ssh_access_key_pub_secret" {
+  value = module.gcp.ssh_access_key_pub_secret
+}
+
+output "ssh_signing_key_pub_secret" {
+  value = module.gcp.ssh_signing_key_pub_secret
+}
+
+#[why] one-time manual: `terraform output -raw ssh_signing_public_key` -> POST /user/keys usage_type=signing (provider has no signing usage_type)
+output "ssh_signing_public_key" {
+  value = module.gcp.ssh_signing_public_key
+}
 ##[<] 🤖🤖

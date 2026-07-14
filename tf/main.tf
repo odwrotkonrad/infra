@@ -126,7 +126,8 @@ module "github" {
 module "gcp" {
   source = "./modules/gcp"
 
-  gitlab_token = module.gitlab.sandbox_token
+  gitlab_token    = module.gitlab.sandbox_token
+  ssh_key_comment = var.sandbox_ssh_key_comment
 }
 
 module "gitlab" {
