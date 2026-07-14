@@ -1,0 +1,89 @@
+##[>] 🤖🤖
+variable "trees" {
+  type = map(object({
+    name        = string
+    path        = string
+    description = string
+    defaults = optional(object({
+      public_jobs      = optional(bool, false)
+      protection_level = optional(string, "developer")
+      github_mirror    = optional(bool, false)
+    }), {})
+    projects = optional(map(object({
+      name                = string
+      path                = string
+      description         = string
+      allow_force_push    = optional(bool, false)
+      topics              = optional(set(string), [])
+      visibility          = optional(string, "public")
+      enable_local_runner = optional(bool, false)
+      pages_unique_domain = optional(bool)
+    })), {})
+    groups = optional(any, {})
+  }))
+}
+
+#[why] gate the konradodwrot root: false keeps it declared but out of the plan while git-repos still owns it in its own state; flip true after state adoption.
+variable "manage_konradodwrot" {
+  type    = bool
+  default = false
+}
+
+variable "local_runner_id" {
+  type    = number
+  default = null
+}
+
+variable "user_ssh_keys" {
+  type = map(object({
+    key        = string
+    usage_type = optional(string, "auth")
+  }))
+  default = {}
+}
+
+variable "github_owner" {
+  type    = string
+  default = null
+}
+
+variable "github_token" {
+  type      = string
+  sensitive = true
+  default   = ""
+}
+
+variable "gcp_project" {
+  type    = string
+  default = "main-493613"
+}
+
+variable "konradodwrot_group_id" {
+  type = number
+}
+
+variable "token_expires_at" {
+  type = string
+}
+
+#[why] restricted CI's own gitlab token (NOT the sandbox token): set via TF_VAR_ci_gitlab_token at apply, empty -> group variable created empty, populate manually
+variable "ci_gitlab_token" {
+  type      = string
+  sensitive = true
+  default   = ""
+}
+
+#[why] base64 GCP SA key JSON for the restricted CI applier: set via TF_VAR_ci_google_credentials at apply, empty -> group variable created empty, populate manually
+variable "ci_google_credentials" {
+  type      = string
+  sensitive = true
+  default   = ""
+}
+
+#[why] github push-mirror token for the CI applier: set via TF_VAR_ci_github_token at apply, empty -> group variable created empty, populate manually
+variable "ci_github_token" {
+  type      = string
+  sensitive = true
+  default   = ""
+}
+##[<] 🤖🤖
