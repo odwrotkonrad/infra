@@ -93,12 +93,6 @@ trees = {
         description = "Infrastructure as code."
 
         projects = {
-          git_repos = {
-            name        = "git-repos"
-            path        = "git-repos"
-            description = "Manages the GitLab groups, projects as code with Terraform"
-            topics      = ["terraform", "infrastructure", "gitlab", "iac"]
-          }
           ci_images = {
             name                = "oci-images"
             path                = "oci-images"
