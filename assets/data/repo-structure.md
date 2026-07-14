@@ -9,4 +9,7 @@ templates
   3-audience
 tf
   modules
-    level
+    gcp
+    github
+    gitlab
+      level

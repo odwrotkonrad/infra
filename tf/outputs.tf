@@ -1,19 +1,19 @@
 ##[>] 🤖🤖
 #[why] base64 JSON key: `terraform output -raw restricted_sa_key | base64 -d | op item edit ...` (Part 3), one-time, run by you
 output "restricted_sa_key" {
-  value     = google_service_account_key.restricted.private_key
+  value     = module.gcp.sa_key
   sensitive = true
 }
 
 output "restricted_sa_email" {
-  value = google_service_account.restricted.email
+  value = module.gcp.sa_email
 }
 
 output "gitlab_token_secret" {
-  value = google_secret_manager_secret.gitlab_token.secret_id
+  value = module.gcp.gitlab_token_secret
 }
 
 output "ssh_private_key_secret" {
-  value = google_secret_manager_secret.ssh_private_key.secret_id
+  value = module.gcp.ssh_private_key_secret
 }
 ##[<] 🤖🤖

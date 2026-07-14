@@ -8,7 +8,7 @@ resource "google_secret_manager_secret" "gitlab_token" {
 
 resource "google_secret_manager_secret_version" "gitlab_token" {
   secret      = google_secret_manager_secret.gitlab_token.id
-  secret_data = gitlab_group_access_token.sandbox.token
+  secret_data = var.gitlab_token
 }
 
 resource "google_secret_manager_secret_iam_member" "gitlab_token_reader" {
