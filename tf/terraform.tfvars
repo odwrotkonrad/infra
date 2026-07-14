@@ -1,6 +1,7 @@
 ##[>] 🤖🤖
 konradodwrot_group_id = 130724356
 token_expires_at      = "2026-10-12"
+manage_konradodwrot   = true
 
 github_owner    = "odwrotkonrad"
 local_runner_id = 53786471
