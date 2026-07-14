@@ -11,6 +11,10 @@ trees = {
     path        = "konradodwrot-restricted"
     description = "Restricted top-level group: sandbox identity and secrets as code, outside the konradodwrot subtree."
 
+    defaults = {
+      github_mirror = true
+    }
+
     projects = {
       infra = {
         name        = "infra"
