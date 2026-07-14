@@ -11,7 +11,7 @@ resource "gitlab_group_variable" "ci_gitlab_token" {
   key       = "TF_GITLAB_TOKEN"
   value     = var.ci_gitlab_token
   masked    = var.ci_gitlab_token != ""
-  protected = true
+  protected = false
 }
 
 #[why] GOOGLE_CREDENTIALS is NOT managed here: it holds the out-of-band tf-restricted-infra applier SA key (created via gcloud, set via glab), kept outside the state this applier applies. Same isolation as tf-git-repos.
@@ -21,6 +21,6 @@ resource "gitlab_group_variable" "ci_github_token" {
   key       = "GITHUB_TOKEN"
   value     = var.ci_github_token
   masked    = var.ci_github_token != ""
-  protected = true
+  protected = false
 }
 ##[<] 🤖🤖
