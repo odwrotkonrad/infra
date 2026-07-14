@@ -40,6 +40,7 @@ plan:
   needs: []
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
     - make plan
   artifacts:
@@ -49,10 +50,11 @@ plan:
 
 apply:
   stage: apply
-  needs: []
+  needs:
+    - plan
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
   script:
-    - make plan
     - make apply
 ##[<] 🤖🤖
