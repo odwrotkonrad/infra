@@ -73,13 +73,6 @@ variable "ci_gitlab_token" {
   default   = ""
 }
 
-#[why] base64 GCP SA key JSON for the restricted CI applier: set via TF_VAR_ci_google_credentials at apply, empty -> group variable created empty, populate manually
-variable "ci_google_credentials" {
-  type      = string
-  sensitive = true
-  default   = ""
-}
-
 #[why] github push-mirror token for the CI applier: set via TF_VAR_ci_github_token at apply, empty -> group variable created empty, populate manually
 variable "ci_github_token" {
   type      = string

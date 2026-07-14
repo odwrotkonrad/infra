@@ -14,11 +14,12 @@ resource "gitlab_group_variable" "ci_gitlab_token" {
   protected = true
 }
 
+#[why] the SA key TF just generated (already base64) feeds its own CI applier var: no manual copy-paste, self-heals on rotation.
 resource "gitlab_group_variable" "ci_google_credentials" {
   group     = local.restricted_group_id
   key       = "GOOGLE_CREDENTIALS"
-  value     = var.ci_google_credentials
-  masked    = var.ci_google_credentials != ""
+  value     = google_service_account_key.restricted.private_key
+  masked    = true
   protected = true
 }
 
