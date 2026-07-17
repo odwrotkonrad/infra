@@ -43,8 +43,8 @@ Each convention dir carries a runnable `example/`. This repo itself follows all 
 
 ### CI:
 
-`run-repo-ci-prepare-hooks` install lefthook git hooks
-`run-repo-ci-precommit-all`: `run-repo-ci-prepare-hooks` run pre-commit hooks over all files (not just staged)
+`repo-ci-prepare-hooks` install lefthook git hooks
+`repo-ci-precommit-all`: `repo-ci-prepare-hooks` run pre-commit hooks over all files (not just staged)
 
 ### Terraform:
 
