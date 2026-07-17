@@ -32,7 +32,7 @@ validate-pre-commit-all:
   variables:
     CHE_RENDER_TEMPLATES_SKIP_SECRETS: "true"
   script:
-    - make run-repo-ci-precommit-all
+    - make repo-ci-precommit-all
     - git diff --exit-code HEAD
 
 plan:

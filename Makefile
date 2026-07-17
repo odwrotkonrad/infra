@@ -5,7 +5,7 @@ SHELL := zsh
 TF ?= terraform
 
 WRAPPERS :=
-COMMANDS := render-templates run-repo-ci-prepare-hooks run-repo-ci-precommit-all init fmt validate lock plan apply
+COMMANDS := render-templates repo-ci-prepare-hooks repo-ci-precommit-all init fmt validate lock plan apply
 
 .PHONY: $(WRAPPERS) $(COMMANDS)
 
@@ -17,11 +17,11 @@ render-templates:
 
 ##[>] CI [genai-include]
 #[what] install lefthook git hooks
-run-repo-ci-prepare-hooks:
+repo-ci-prepare-hooks:
 	@lefthook install --force
 
 #[what] run pre-commit hooks over all files (not just staged)
-run-repo-ci-precommit-all: run-repo-ci-prepare-hooks
+repo-ci-precommit-all: repo-ci-prepare-hooks
 	@lefthook run pre-commit --all-files --force
 ##[<] CI
 
