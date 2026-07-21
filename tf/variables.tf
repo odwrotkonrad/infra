@@ -10,14 +10,15 @@ variable "trees" {
       github_mirror    = optional(bool, false)
     }), {})
     projects = optional(map(object({
-      name                = string
-      path                = string
-      description         = string
-      allow_force_push    = optional(bool, false)
-      topics              = optional(set(string), [])
-      visibility          = optional(string, "public")
-      enable_local_runner = optional(bool, false)
-      pages_unique_domain = optional(bool)
+      name                       = string
+      path                       = string
+      description                = string
+      allow_force_push           = optional(bool, false)
+      topics                     = optional(set(string), [])
+      visibility                 = optional(string, "public")
+      enable_local_runner        = optional(bool, false)
+      pages_unique_domain        = optional(bool)
+      ci_pipeline_variables_role = optional(string)
     })), {})
     groups = optional(any, {})
   }))
