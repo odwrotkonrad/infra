@@ -87,18 +87,19 @@ locals {
         for gk, g in lvl : {
           for pk, p in g.projects :
           "${g.path}/${p.path}" => {
-            name                = p.name
-            path                = p.path
-            group               = g.path
-            description         = p.description
-            allow_force_push    = try(p.allow_force_push, false)
-            topics              = try(p.topics, [])
-            visibility          = try(p.visibility, "public")
-            public_jobs         = try(g.defaults.public_jobs, false)
-            protection_level    = try(g.defaults.protection_level, "developer")
-            github_mirror       = try(g.defaults.github_mirror, false)
-            enable_local_runner = try(p.enable_local_runner, false)
-            pages_unique_domain = try(p.pages_unique_domain, null)
+            name                       = p.name
+            path                       = p.path
+            group                      = g.path
+            description                = p.description
+            allow_force_push           = try(p.allow_force_push, false)
+            topics                     = try(p.topics, [])
+            visibility                 = try(p.visibility, "public")
+            public_jobs                = try(g.defaults.public_jobs, false)
+            protection_level           = try(g.defaults.protection_level, "developer")
+            github_mirror              = try(g.defaults.github_mirror, false)
+            enable_local_runner        = try(p.enable_local_runner, false)
+            pages_unique_domain        = try(p.pages_unique_domain, null)
+            ci_pipeline_variables_role = try(p.ci_pipeline_variables_role, null)
           }
         }
       ]...)

@@ -8,18 +8,19 @@ variable "levels" {
       parent      = optional(string)
     }))
     projects = map(object({
-      name                = string
-      path                = string
-      group               = string
-      description         = string
-      allow_force_push    = bool
-      topics              = set(string)
-      visibility          = string
-      public_jobs         = bool
-      protection_level    = string
-      github_mirror       = bool
-      enable_local_runner = bool
-      pages_unique_domain = optional(bool)
+      name                       = string
+      path                       = string
+      group                      = string
+      description                = string
+      allow_force_push           = bool
+      topics                     = set(string)
+      visibility                 = string
+      public_jobs                = bool
+      protection_level           = string
+      github_mirror              = bool
+      enable_local_runner        = bool
+      pages_unique_domain        = optional(bool)
+      ci_pipeline_variables_role = optional(string)
     }))
   }))
 }

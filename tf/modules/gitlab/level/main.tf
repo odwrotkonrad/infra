@@ -21,6 +21,8 @@ resource "gitlab_project" "this" {
   visibility_level   = each.value.visibility
   pages_access_level = "enabled"
   public_jobs        = each.value.public_jobs
+
+  ci_pipeline_variables_minimum_override_role = each.value.ci_pipeline_variables_role
 }
 
 resource "gitlab_branch_protection" "this" {
